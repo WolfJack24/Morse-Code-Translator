@@ -56,7 +56,7 @@ class Gui(CTk):
             print("Input cannot be empty!")
         else:
             if " " in input_text:
-                input_list: list[str] = list(input_text)
+                input_list: list[str] = input_text.split(" ")
             else:
                 input_list: list[str] = [input_text]
 
@@ -64,18 +64,20 @@ class Gui(CTk):
                 case "To Morse":
                     morse: Any = self.morse_code["Morse"]
 
-                    for item in morse:
-                        for char in input_list:
+                    for word in input_list:
+                        for char in word:
                             char = char.upper()
-                            if char != " " and char == item:
-                                result.append(morse[item])
+                            for item in morse:
+                                if char != " " and char == item:
+                                    result.append(morse[item])
 
                 case "To Text":
                     text: Any = self.morse_code["Text"]
 
-                    for item in text:
-                        if item in input_list:
-                            result.append(text[item])
+                    for _i, value in enumerate(input_list):
+                        for item in text:
+                            if item == value:
+                                result.append(text[item])
 
         print(f"Input: {input_text}")
         print(f"Translate: {translate}")
