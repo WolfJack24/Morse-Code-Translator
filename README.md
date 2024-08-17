@@ -1,15 +1,13 @@
 # Morse-Code-Translator
 
-Basic implentation of a Morse Code translator
+Basic implentation of a Morse Code trasnlator
 
+![Morse Code Photo](/morsecode.webp)
 [^1]
-![Morse Code Photo](./assets/images/morsecode.webp)
-
-A to 0 is implemented!
 
 ## Get-Started
 
-> WARNING: when translating make sure there is spaces between each morse code symbol! e.g: `.- -...` == A B or a b.
+> WARNING: when translating make sure you have CAPS on and that there is spaces between each morse code/letter!
 
 - Dot: `.`
 - Dash:`-`
@@ -25,7 +23,7 @@ py .\main.py
 
 ### TODO
 
-- [x] Add support for small characters
-- [x] Change the default font so that is shows `.` and `-` render better
+- [ ] Add support for small characters
+- [ ] Change the default font so that is shows `.` and `-` render better
 
 [^1]: [Image Cred](https://scoutlife.org/hobbies-projects/funstuff/575/morse-code-translator/)
