@@ -1,5 +1,6 @@
 # pylint: disable=import-error, missing-module-docstring, missing-function-docstring, missing-class-docstring
 from json import load as json_load
+from sys import exit as sys_exit
 from typing import Any
 from customtkinter import (
     CTk,
@@ -9,8 +10,7 @@ from customtkinter import (
     CTkFont,
     FontManager,
     ThemeManager,
-    set_default_color_theme as color_theme,
-    set_appearance_mode as appearance
+    set_default_color_theme as color_theme
 )
 from assets.modules.List import List
 
@@ -55,7 +55,11 @@ class Gui(CTk):
         if input_text == "":
             print("Input cannot be empty!")
         else:
-            input_list: list[str] = list(input_text)
+            if " " in input_text:
+                input_list: list[str] = list(input_text)
+            else:
+                input_list: list[str] = [input_text]
+
             match translate:
                 case "To Morse":
                     morse: Any = self.morse_code["Morse"]
@@ -74,7 +78,7 @@ class Gui(CTk):
                             result.append(text[item])
 
         print(f"Input: {input_text}")
-        print(f"Translate to: {translate}")
+        print(f"Translate: {translate}")
         print(f"Result: {result.delisttify()}")
         print("---------------------------")
 
@@ -83,20 +87,23 @@ def main() -> None:
     if not FontManager.load_font("./assets/fonts/SourceCodePro-Medium.otf"):
         print("Font did not load!")
     ThemeManager.load_theme("./assets/theme/blue_in_hex.json")
-    appearance("dark")
     color_theme("./assets/theme/blue_in_hex.json")
 
     app: Gui = Gui()
 
-    try:
-        with open("./assets/json/morsecode.json", "r", encoding="utf-8") as code:
-            morse_code: Any = json_load(code)
-    except OSError:
-        print("Failed to open/find `./assets/json/morsecode.json`")
-    finally:
-        code.close()
+    morse_code: Any | None = None
+    morse_code_json: str = "./assets/json/morsecode.json"
 
-    app.load_morse_code(morse_code)
+    try:
+        with open(morse_code_json, "r", encoding="utf-8") as code:
+            morse_code = json_load(code)
+            code.close()
+    except OSError:
+        print(f"Failed to open/find `{morse_code_json}`")
+        sys_exit(1)
+
+    if morse_code:
+        app.load_morse_code(morse_code)
 
     app.mainloop()
 
