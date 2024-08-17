@@ -14,6 +14,8 @@ from customtkinter import (
 )
 from assets.modules.List import List
 
+TEST = True
+
 
 class Gui(CTk):
     def __init__(self):
@@ -43,6 +45,9 @@ class Gui(CTk):
             text="Translate", font=self.source_code_pro,
             command=self.translate)
         self.submit_button.place(x=82, y=111)
+
+        if TEST:
+            self.destroy()
 
     def load_morse_code(self, morse_code: Any) -> None:
         self.morse_code = morse_code
