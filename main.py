@@ -25,7 +25,7 @@ class Gui(CTk):
         self.title("Morse Code Translator")
         self.geometry("300x200")
         self.resizable(False, False)
-        # self.iconbitmap("./assets/icons/icon.ico")
+        self.iconbitmap("./assets/icons/icon.ico")
 
         self.input_field: CTkEntry = CTkEntry(
             self, width=136, height=26, corner_radius=3,
